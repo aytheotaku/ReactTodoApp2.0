@@ -17,13 +17,16 @@ class App extends Component {
     this.state = {
       inputValue:"",
       todos:[],
+      todoLabel :`type here to procastinate :)`,
+      empty:false,
     }
     
   }
 
   handleChange(e){
     this.setState({
-      inputValue:e.target.value
+      inputValue:e.target.value,
+      todoLabel:`type here to procastinate :)`,
     })
   }
  
@@ -31,12 +34,16 @@ class App extends Component {
   addTodo(){
     
     if(this.state.inputValue === ""){
-      alert(`please type in a todo`)
-      return
+     this.setState((state)=>({
+       todoLabel:`empty field cannot be submitted`,
+       isEmpty:true
+     }))
     }
     else{
+      
       dummyTodos.push({id:Math.floor(Math.random() * 2000),content:this.state.inputValue})
       this.setState({
+        labelStyle:{color:'white'},
         todos:dummyTodos,
         inputValue:""
       })
@@ -64,8 +71,8 @@ class App extends Component {
   render() {
     return (
       <div className="container" style={{marginTop:"20vh"}}>
-        <InputComponent handleChange={this.handleChange} stateContent={this.state.inputValue} handleAddClick={this.addTodo}/>
-        <TodoContainer todos={this.state.todos} handleDeleteClick={this.deleteTodo}/>
+        <InputComponent handleChange={this.handleChange} stateContent={this.state.inputValue} handleAddClick={this.addTodo} todoLabel={this.state.todoLabel}/>
+        <TodoContainer isEmpty={this.state.empty} todos={this.state.todos} handleDeleteClick={this.deleteTodo}/>
         </div>
     )
   }

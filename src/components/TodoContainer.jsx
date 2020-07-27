@@ -1,6 +1,6 @@
 import React from 'react'
 import Todos from './Todos'
-function TodoContainer({todos, handleDeleteClick}) {
+function TodoContainer({todos, handleDeleteClick, isEmpty}) {
     return (
         <> 
         <ul className="z-depth-5 collection with-header">
